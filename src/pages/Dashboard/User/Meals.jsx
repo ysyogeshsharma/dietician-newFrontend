@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { decodeJwt } from "../../../middelwares"
+import { toast } from "react-toastify"
 
 const MealTable = ({meal}) => {
     console.log("meal is",meal)
@@ -16,7 +17,7 @@ const MealTable = ({meal}) => {
             </thead>
             <tbody className="mb-10 font-paragraph">
 
-                {meal.ingredients.map((ing)=>(<tr className="border-t text-center">
+                {meal && meal.ingredients.map((ing)=>(<tr className="border-t text-center">
                     <td className="p-2">{ing.ingredient_name}</td>
                     <td>{ing.protein}</td>
                     <td>{ing.fat}</td>
@@ -24,37 +25,7 @@ const MealTable = ({meal}) => {
                     <td>{ing.calories}</td>
                 </tr>))}
 
-                {/* <tr className="border-t text-center">
-                    <td className="p-2">WHEY PROTEIN 1/2 SCOOP</td>
-                    <td>12</td>
-                    <td>0.7</td>
-                    <td>1.2</td>
-                    <td>60</td>
-                </tr>
-
-                <tr className="border-t text-center">
-                    <td className="p-2">WHEY PROTEIN 1/2 SCOOP</td>
-                    <td>12</td>
-                    <td>0.7</td>
-                    <td>1.2</td>
-                    <td>60</td>
-                </tr>
-
-                <tr className="border-t text-center">
-                    <td className="p-2">WHEY PROTEIN 1/2 SCOOP</td>
-                    <td>12</td>
-                    <td>0.7</td>
-                    <td>1.2</td>
-                    <td>60</td>
-                </tr>
-
-                <tr className="border-t text-center">
-                    <td className="p-2">WHEY PROTEIN 1/2 SCOOP</td>
-                    <td>12</td>
-                    <td>0.7</td>
-                    <td>1.2</td>
-                    <td>60</td>
-                </tr> */}
+               
             </tbody>
             <tfoot>
                 <tr className="border-t text-center">
@@ -75,6 +46,7 @@ const Meals = () => {
 
     useEffect(()=>{
         async function fetchData(){
+            try{
             const decoded = decodeJwt(localStorage.getItem("dietToken"));
             console.log("decoded in meals", decoded);
             const response = await fetch("https://dietician-backend-iryh.onrender.com/users/getUserDiet", {
@@ -89,6 +61,9 @@ const Meals = () => {
               const jsonResponse = await response.json();
               console.log("response is", jsonResponse);
               setMeals(jsonResponse.data);
+            }catch(e){
+                toast.error("Something went wrong")
+            }
         }
 
         fetchData();
@@ -103,7 +78,7 @@ const Meals = () => {
                     <div className="my-8 ">
                         <ul className="mx-auto min-w-[12rem] md:min-w-[28rem] lg:min-w-[24rem] xl:min-w-[36rem] max-w-xl divide-y">
                            
-                            {meals.map((meal)=>(<li>
+                            {meals && meals.map((meal)=>(<li>
                                 <details className="group">
                                     <summary className="flex items-center gap-3 px-4 py-3 font-medium marker:content-none hover:cursor-pointer">
                                         <svg

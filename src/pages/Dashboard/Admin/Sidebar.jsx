@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import LogoutHandler from "../../../logoutHandler.js"
 import { useNavigate } from "react-router-dom";
 
 function Links() {
@@ -23,6 +22,7 @@ function Links() {
               
               className="flex items-center py-2 text-lg hover:text-indigo-700"
               to=""
+              end
             >
               {({ isActive }) => (
                 <>
@@ -69,7 +69,7 @@ function Links() {
                 </>
               )}
             </NavLink>
-            <NavLink
+            {/* <NavLink
               
               className={"flex items-center py-2 text-lg hover:text-indigo-700"}
               to="notifications"
@@ -83,7 +83,7 @@ function Links() {
                   ></i>
                 </>
               )}
-            </NavLink>
+            </NavLink> */}
           </div>
 
           <div className="px-8 py-3">

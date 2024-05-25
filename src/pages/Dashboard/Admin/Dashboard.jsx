@@ -55,13 +55,7 @@ const Dashboard = () => {
           </svg>
         </button>
 
-        {/* <Home/> */}
-        {/* {props.children}
-        {console.log(props.children)} */}
-        {/* <Users /> */}
-        {/* <Requests /> */}
-        {/* <SingleUser /> */}
-        {/* {props.children} */}
+       
 
 
         <Outlet />

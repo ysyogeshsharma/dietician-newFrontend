@@ -1,7 +1,38 @@
+import { decodeJwt } from "../middelwares";
+import { toast } from "react-toastify";
+
 const UserProgress = () => {
 
-  function handleUpload(e){
+
+  const token = localStorage.getItem("dietToken");
+  const decoded = token ? decodeJwt(token) : null;
+
+
+
+  async function handleUpload(e) {
     console.log("Inside handle upload file and value is", e);
+    try {
+      const formData = new FormData();
+      formData.append('image', e.target.files[0]);
+      formData.append('email', decoded.email);
+
+      const res = await fetch("http://localhost:3000/users/uploadpic", {
+        method: "POST",
+        body: formData
+      });
+
+      const resJson = res.json();
+
+      if (resJson.success) {
+        toast.message("Successfully uploaded image");
+      } else {
+        toast.error("got some problem", e);
+      }
+
+    } catch (e) {
+      toast.error("Got some error", e)
+    }
+
   }
 
 
@@ -58,7 +89,7 @@ const UserProgress = () => {
             <input
               type="file"
               className="invisible hidden w-full"
-              onClick={handleUpload}
+              onChange={handleUpload}
             />
           </label>
           <p className="mt-4 text-xs dark:text-slate-300">

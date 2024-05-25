@@ -30,8 +30,7 @@ const App = () => {
           <Route path="/auth/login" element={<Login />} />
           <Route path="/auth/signup" element={<Signup />} />  
           <Route path="/UserDetailForm" element={<UserDetailForm />} />
-          <Route path="/UserProfile" element={<Protectedroutes><UserProfile /></Protectedroutes>} />
-          <Route path="/UserProgress" element={<Protectedroutes><UserProgress /></Protectedroutes>} />
+          
           <Route path="/super" element={<AdminPanel />} />
           <Route path="/super/ut" element={<UserTicket />} />
           <Route path="/dashboard/admin" element={<Protectedroutes><Dashboard /></Protectedroutes>} >
@@ -40,7 +39,11 @@ const App = () => {
             <Route path="users/:id" element={<Protectedroutes><SingleUser/></Protectedroutes>} />
             <Route path="requests" element={<Protectedroutes><Requests/></Protectedroutes>} />
           </Route>
+
+
           
+          <Route path="/UserProfile" element={<Protectedroutes><UserProfile /></Protectedroutes>} />
+          <Route path="/UserProgress" element={<Protectedroutes><UserProgress /></Protectedroutes>} />
           <Route path="/fitness" element={<Protectedroutes><FitnessCoach /></Protectedroutes>} />
 
         </Routes>
